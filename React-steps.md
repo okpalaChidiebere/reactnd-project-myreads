@@ -4,12 +4,14 @@ React applications:
 #### Step 1. Break down the app into a hierarchy of components. Draw a box around each React component.
 
 |- App
-|-- Route
-|--- BookShelf
-|---- Book
-|--- SearchBook (Controlled Component)
-|---- Book
-
+|-- BooksApp
+|--- Route
+|---- BookShelf
+|----- Book
+|------ BookShelfChanger
+|---- SearchBook (Controlled Component)
+|----- Book
+|------ BookShelfChanger
 
 #### Step 2. Determine the data in our app.
 
