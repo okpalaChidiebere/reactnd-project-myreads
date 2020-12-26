@@ -7,16 +7,6 @@ class BookShelfChanger extends React.Component{
         bookID: PropTypes.string.isRequired,
     }
 
-    state = {
-        query: '',  //we will bind our input field to to whatever the value of a certain property of a state is
-    }
-
-    updateQuery = (query) => {
-        this.setState(() => ({
-          query: query.trim()
-        }))
-    }
-
     bookShelfChange = event => {
         /* I will not use the name value I destructed because there is no need for me to. 
         It will be useful when i have other input fields in this UI calls this same function. 

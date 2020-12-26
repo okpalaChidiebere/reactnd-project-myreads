@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Book from './Book'
 
 const test_book = {
@@ -24,9 +25,13 @@ class BooksApp extends React.Component {
             <div className="list-books-content">
             <Book book={test_book}/>
                 
-                <div className="open-search">
-                    <button>Add a book</button>
-                </div>
+                <Link
+                to='/search'
+                >
+                    <div className="open-search">
+                        <button>Add a book</button>
+                    </div>
+                </Link>
             </div>
         </div>
       )

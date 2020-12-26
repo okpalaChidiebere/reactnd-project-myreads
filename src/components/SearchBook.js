@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 
 class SearchBook extends React.Component{
 
@@ -7,7 +9,7 @@ class SearchBook extends React.Component{
         return(
             <div className="search-books">
                 <div className="search-books-bar">
-                    <button className="close-search" >Close</button>
+                    <Link to='/' className="close-search" >CLose</Link>
                     <div className="search-books-input-wrapper">
                         {/*
                   NOTES: The search from BooksAPI is limited to a particular set of search terms.
