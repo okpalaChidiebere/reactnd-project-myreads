@@ -41,7 +41,7 @@ class SearchBook extends React.Component{
         const { query, books } = this.state
         const queryResults = query === '' 
           ? [] //if the search field is empty, we initialize an empty array so, there will be no books to show
-          : books.map(book => (
+          : !books.error && books.map(book => ( //{books: { error: "empty query", items: []} } When the search dont return aby result, you get a different format of books rather than the aarry you expect. So the .map will not work leading to you app crashing. You have to check against this situation 
             <li key={book.id}>
                 <Book book={book}/>
             </li>

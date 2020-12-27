@@ -6,9 +6,10 @@ React applications:
 |- App
 |-- BooksApp
 |--- Route
-|---- BookShelf
-|----- Book
-|------ BookShelfChanger
+|---- BookShelves
+|----- BookShelf
+|------ Book
+|------- BookShelfChanger
 |---- SearchBook (Controlled Component)
 |----- Book
 |------ BookShelfChanger
