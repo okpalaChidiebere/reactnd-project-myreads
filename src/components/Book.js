@@ -4,7 +4,8 @@ import BookShelfChanger from './BookShelfChanger'
 
 const Book = props => {
 
-    const { imageLinks, title, authors, id } = props.book
+    //The code below we used Default function paramter in ES6 JavaScript.
+    const { id = "", imageLinks = {smallThumbnail: ""}, title = "", authors = [] } = props.book
 
     return(
         <div className="book">
@@ -19,10 +20,7 @@ const Book = props => {
 }
 
 Book.propTypes = {
-    imageLinks: PropTypes.object.isRequired,
-    title: PropTypes.string.isRequired,
-    authors: PropTypes.array.isRequired,
-    id: PropTypes.string.isRequired,
+    book: PropTypes.object.isRequired,
 };
 
 export default Book
