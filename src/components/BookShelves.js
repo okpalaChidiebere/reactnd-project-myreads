@@ -17,6 +17,8 @@ const test_book = {
 class BookShelves extends React.Component {
 
     render() {
+        const { books } = this.props
+
       return(
         <div className="list-books">
             <div className="list-books-title">
@@ -24,6 +26,7 @@ class BookShelves extends React.Component {
             </div>
             <div className="list-books-content">
             <Book book={test_book}/>
+            {JSON.stringify(books)}
                 
                 <Link
                 to='/search'
