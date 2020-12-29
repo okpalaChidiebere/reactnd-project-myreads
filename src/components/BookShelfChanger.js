@@ -4,19 +4,22 @@ import PropTypes from 'prop-types';
 class BookShelfChanger extends React.Component{
 
     static propTypes = {
-        book: PropTypes.object.isRequired,
+        book: PropTypes.object.isRequired, //book, it may have a shlef or not. But preferably with self
+        onUpdateShelf: PropTypes.func.isRequired, //function used to update the book shelf is the user want to change the shelf with select button
     }
 
     constructor(props){
         super(props);
 
         const { book, onUpdateShelf } = this.props
+        const bookShelf = book.shelf ? book.shelf : "none"
 
         this.book = book
         this.onUpdateShelf = onUpdateShelf
-
+        //this.shelf = shelf
+        //console.log(bookShelf)
         this.state = {
-            value: book.shelf = 'none' //default value will be none if there is no bookSelf already for this book
+            value: bookShelf //default value will be none if there is no bookSelf already for this book
         }
 
     }

@@ -43,21 +43,20 @@ class BooksApp extends React.Component {
          gets called when the DOM is initialized the first time
          NOTE: we but the setState inside the update API to ensure that if our API fails, our code will not change the books displayed*/
         BooksAPI.update(book, shelf).then((shelves) => {
-            if(shelves[shelf]){ //if the shelf we intend to update was returned, we know the API did not fail. we colud also do if(!shelves.error)
-                this.updateBooks(updatedBook)
-            }
+            !shelves.error && this.updateBooks(updatedBook) //if there was not error property returned, we know the API did not fail.
         })
     }
     
     render(){
-    
+
+        const { books } = this.state
         return (
           <div >
             <Route exact path='/' render={() => (
               <BookShelves books={this.state} />
             )}/>
             <Route path='/search' render={() => (
-              <SearchBook onUpdateShelf={this.handleUpdateShelf}/>
+              <SearchBook onUpdateShelf={this.handleUpdateShelf} booksInMyShelf={books}/>
             )}/>
           </div>
         )
