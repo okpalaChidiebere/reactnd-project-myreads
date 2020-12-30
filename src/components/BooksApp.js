@@ -6,8 +6,16 @@ import * as BooksAPI from '../api/BooksAPI'
 
 class BooksApp extends React.Component {
 
-    state = {
-        books: []
+    constructor(props){
+
+        super(props)
+
+        //thie API to update shelf looks like {currentlyReading: [...bookdIds], wantToread: [...bookdIds], read: [...bookdIds]}
+        this.shelves = ["currentlyReading", "wantToRead", "read"] 
+
+        this.state = {
+            books: []
+        }
     }
 
     componentDidMount(){
@@ -24,9 +32,9 @@ class BooksApp extends React.Component {
         })
     }
 
-    updateBooks = (book) => {
+    updateBooks = (book, shelf) => {
         this.setState(currState => ({
-            books: currState.books.filter(b => b.id !== book.id).concat(book), //we filter out the oldBook with old shelf and add the updated book with the new shelf it belongs
+            books: shelf !== 'none' ? currState.books.filter(b => b.id !== book.id).concat(book) : currState.books.filter(b => b.id !== book.id), //we filter out the oldBook with old shelf and add the updated book with the new shelf it belongs or we filter out the book when the shelf is none
         }));
     }
 
@@ -43,17 +51,18 @@ class BooksApp extends React.Component {
          gets called when the DOM is initialized the first time
          NOTE: we but the setState inside the update API to ensure that if our API fails, our code will not change the books displayed*/
         BooksAPI.update(book, shelf).then((shelves) => {
-            !shelves.error && this.updateBooks(updatedBook) //if there was not error property returned, we know the API did not fail.
+            !shelves.error && this.updateBooks(updatedBook, shelf) //if there was not error property returned, we know the API did not fail.
         })
     }
     
     render(){
 
         const { books } = this.state
+        const { shelves } = this
         return (
           <div >
             <Route exact path='/' render={() => (
-              <BookShelves books={this.state} />
+              <BookShelves books={books} shelfCategories = {shelves} onUpdateShelf={this.handleUpdateShelf}/>
             )}/>
             <Route path='/search' render={() => (
               <SearchBook onUpdateShelf={this.handleUpdateShelf} booksInMyShelf={books}/>

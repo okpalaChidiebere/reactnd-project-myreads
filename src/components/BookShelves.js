@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Book from './Book'
+import BookShelf from './BookShelf'
+import PropTypes from 'prop-types'
 
-const test_book = {
+/*const test_book = {
     title: "The Linux Command Line",
     authors: [
         "William E. Shotts, Jr.",
@@ -12,12 +13,27 @@ const test_book = {
         smallThumbnail: "http://books.google.com/books/content?id=nggnmAEACAAJ&printsec=frontcover&img=1&zoom=5&source=gbs_api"
     },
     id: "nggnmAEACAAJ",
-};
+};*/
 
 class BookShelves extends React.Component {
 
+    static propTypes = {
+        books: PropTypes.array.isRequired,
+        shelfCategories: PropTypes.array.isRequired,
+        onUpdateShelf: PropTypes.func.isRequired,
+      };
+
     render() {
-        const { books } = this.props
+        const { books, shelfCategories, onUpdateShelf } = this.props
+
+        const listMyBooksWithShelves = shelfCategories.map((shelf, index) => (
+            <BookShelf
+              key={index}
+              shelf={shelf}
+              books={books.filter((book) => book.shelf === shelf)}
+              onUpdateShelf={onUpdateShelf}
+            />
+          ))
 
       return(
         <div className="list-books">
@@ -25,8 +41,8 @@ class BookShelves extends React.Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-            <Book book={test_book}/>
-            {JSON.stringify(books)}
+            {listMyBooksWithShelves}
+            {/*JSON.stringify(books)*/}
                 
                 <Link
                 to='/search'
