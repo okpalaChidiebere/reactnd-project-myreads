@@ -11,20 +11,8 @@ class BookShelfChanger extends React.Component{
         onUpdateShelf: PropTypes.func.isRequired, //function used to update the book shelf is the user want to change the shelf with select button
     }
 
-    constructor(props){
-        super(props);
-
-        const { book, onUpdateShelf } = this.props
-        const bookShelf = book.shelf ? book.shelf : "none"
-
-        this.book = book
-        this.onUpdateShelf = onUpdateShelf
-        //this.shelf = shelf
-        //console.log(bookShelf)
-        this.state = {
-            value: bookShelf //default value will be none if there is no bookSelf already for this book
-        }
-
+    state = {
+        value:  this.props.book.shelf ? this.props.book.shelf : "none" //default value will be none if there is no bookSelf already for this book
     }
 
     updateValue = (value) => {
@@ -34,15 +22,17 @@ class BookShelfChanger extends React.Component{
     }
 
     bookShelfChange = event => {
-    
+
+        const { book, onUpdateShelf } = this.props
+
         /* I will not use the name value I destructed because there is no need for me to. 
         It will be useful when i have other input fields in this UI calls this same function. 
         So i will use the unique name to know which one is which one that called this function*/
         const { name, value } = event.target
 
         this.updateValue(value)
-        console.log(this.book)
-        //this.onUpdateShelf(this.book, value)
+        console.log(book)
+        onUpdateShelf(book, value)
     }
 
     render(){

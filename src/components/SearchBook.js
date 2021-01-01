@@ -100,7 +100,7 @@ class SearchBook extends React.Component{
             </div>
             <div className="search-books-results">
             {/*JSON.stringify(showingBooks.map(({ id = "", imageLinks = {smallThumbnail: ""}, title = "", authors = [] } = {}) => (`${authors}`)))*/}
-            {JSON.stringify(booksForBulkMove)}
+            {/*JSON.stringify(booksForBulkMove)*/}
               <ol className="books-grid">
                   {
                   books.error 
