@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 class BookShelfChanger extends React.Component{
 
     static propTypes = {
-        book: PropTypes.object.isRequired, //book, it may have a shlef or not. But preferably with self
+        book: PropTypes.oneOfType([
+            PropTypes.object,
+            PropTypes.array
+        ]), //book, it may have a shlef or not. But preferably with self
         onUpdateShelf: PropTypes.func.isRequired, //function used to update the book shelf is the user want to change the shelf with select button
     }
 
@@ -38,7 +41,8 @@ class BookShelfChanger extends React.Component{
         const { name, value } = event.target
 
         this.updateValue(value)
-        this.onUpdateShelf(this.book, value)
+        console.log(this.book)
+        //this.onUpdateShelf(this.book, value)
     }
 
     render(){

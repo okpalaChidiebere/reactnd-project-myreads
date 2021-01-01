@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import Book from './Book'
 import * as BooksAPI from '../api/BooksAPI'
 import PropTypes from 'prop-types'
+import BookShelfChanger from './BookShelfChanger'
 
 
 
@@ -16,6 +17,13 @@ class SearchBook extends React.Component{
     state = {
         query: '',  //we will bind our input field to to whatever the value of a certain property of a state is
         books: [],
+        booksForBulkMove: []
+    }
+
+    handleUpdateIsBulkShelfMove = (book, isChecked) => {
+        this.setState((currState) => ({
+            booksForBulkMove: isChecked ? currState.booksForBulkMove.filter(b => b.id !== book.id).concat(book) : currState.booksForBulkMove.filter(b => b.id !== book.id),
+        }))
     }
 
     updateQuery = (query) => { //the query argument will be passed event.target.value which is the value of the input field.
@@ -49,18 +57,23 @@ class SearchBook extends React.Component{
     render(){
 
         const { onUpdateShelf, booksInMyShelf = [] } = this.props
-        const { query, books } = this.state
+        const { query, books, booksForBulkMove } = this.state
 
         const getBookShelf = (book) => {
             //if the book is undefined ? if true then we find the bookInMyShelf id that matches search book API id? if true, then we return the shelf property ?? 'none'  NOTE: we did not a the false but you can do all that as much as you want in ES6
-            return booksInMyShelf?.find((item) => item.id === book.id)?.shelf 
+            return booksInMyShelf?.find((item) => item.id === book.id)?.shelf??'none' 
         }
 
         const queryResults = query === '' 
           ? [] //if the search field is empty, we initialize an empty array so, there will be no books to show
           : !books.error && books.map(book => ( //{books: { error: "empty query", items: []} } When the search dont return aby result, you get a different format of books rather than the aarry you expect. So the .map will not work leading to you app crashing. You have to check against this situation 
             <li key={book.id}>
-                <Book book={book} shelf={getBookShelf(book)} onUpdateShelf={onUpdateShelf}/>
+                <Book 
+                book={book} 
+                shelf={getBookShelf(book)} 
+                onUpdateShelf={onUpdateShelf}
+                onhandleUpdateIsBulkShelfMove={this.handleUpdateIsBulkShelfMove}
+                />
             </li>
         ))
 
@@ -82,11 +95,12 @@ class SearchBook extends React.Component{
                     value={this.state.query}
                     onChange={(event) => this.updateQuery(event.target.value)}
                     />
-
                 </div>
+                { booksForBulkMove.length > 0 && !books.error && (<BookShelfChanger book={booksForBulkMove} onUpdateShelf={onUpdateShelf}/>)}
             </div>
             <div className="search-books-results">
             {/*JSON.stringify(showingBooks.map(({ id = "", imageLinks = {smallThumbnail: ""}, title = "", authors = [] } = {}) => (`${authors}`)))*/}
+            {JSON.stringify(booksForBulkMove)}
               <ol className="books-grid">
                   {
                   books.error 

@@ -38,21 +38,25 @@ class BooksApp extends React.Component {
         }));
     }
 
-    handleUpdateShelf = (book, shelf) => {
+    handleUpdateShelf = async (books, shelf) => {
 
-        // create the new book state
-        const updatedBook = {
-            ...book,
-            shelf,
+        const updatedBooks = books.length > 0 ? books.map(book => ({ ...book, shelf })) : [{ ...books, shelf }]
+
+        //console.log(updatedBooks)
+
+        //More on for loops and try-catch blocks in asynchronous function here
+        //https://jonathangrosdubois.medium.com/the-myth-of-evil-for-loops-and-try-catch-blocks-in-javascript-8601860295c1
+        try{
+            for(const index in updatedBooks){
+                //This API call will add the book to the necessary self as well as deleting the book from the previous self it was on IF it exists there 
+                await BooksAPI.update(updatedBooks[index], shelf)
+                //We set the state of the books list after the API call to ensure that if our API fails, our code will not change the books displayed *
+                this.updateBooks(updatedBooks[index], shelf)
+            }
+        }catch{
+            //we catch the error thrown if the API fails
+            alert('Oops! Error updating Book Shelf')
         }
-
-        /*This API call will add the book to the necessary self as well as deleting the book from the previous self it was on IF it exists there 
-        This will also help maintain the state of the app on page refresh because we make a call to this API in componentDidMount() lifecycle which
-         gets called when the DOM is initialized the first time
-         NOTE: we but the setState inside the update API to ensure that if our API fails, our code will not change the books displayed*/
-        BooksAPI.update(book, shelf).then((shelves) => {
-            !shelves.error && this.updateBooks(updatedBook, shelf) //if there was not error property returned, we know the API did not fail.
-        })
     }
     
     render(){
