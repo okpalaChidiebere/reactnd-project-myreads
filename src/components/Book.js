@@ -7,7 +7,8 @@ class Book extends React.Component{
     static propTypes = {
         book: PropTypes.object.isRequired, //book from search API without self
         onUpdateShelf: PropTypes.func.isRequired, //function used to update the book shelf is the user want to change the shelf with select button
-        shelf: PropTypes.string.isRequired //shelf this book belongs to if the user has it in their shelf already. This will help reflect this in the select button
+        shelf: PropTypes.string.isRequired, //shelf this book belongs to if the user has it in their shelf already. This will help reflect this in the select button
+        onhandleUpdateIsBulkShelfMove: PropTypes.func.isRequired
     }
 
     state = {

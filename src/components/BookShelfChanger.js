@@ -13,7 +13,7 @@ class BookShelfChanger extends React.Component{
     }
 
     state = {
-        value:  this.props.book.shelf ? this.props.book.shelf : "none" //default value will be none if there is no bookSelf already for this book
+        value:  this.props.book.shelf ? this.props.book.shelf : this.props.book.length > 0 ? "move" : "none" //default value will be none if there is no bookSelf already for this book
     }
 
     updateValue = (value) => {
