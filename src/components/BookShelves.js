@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import BookShelf from './BookShelf'
 import PropTypes from 'prop-types'
+import BookShelfChanger from './BookShelfChanger'
 
 /*const test_book = {
     title: "The Linux Command Line",
@@ -23,8 +24,26 @@ class BookShelves extends React.Component {
         onUpdateShelf: PropTypes.func.isRequired,
       };
 
+    state = {
+      booksForBulkMove: []
+    }
+
+    handleUpdateIsBulkShelfMove = (book, isChecked) => {
+      this.setState((currState) => ({
+          booksForBulkMove: isChecked ? currState.booksForBulkMove.filter(b => b.id !== book.id).concat(book) : currState.booksForBulkMove.filter(b => b.id !== book.id),
+      }))
+    }
+
+    handleClearBooksForBulkMove = () => {
+      this.setState((currState) => ({
+          booksForBulkMove: []
+      }))
+    }
+
     render() {
         const { books, shelfCategories, onUpdateShelf } = this.props
+
+        const { booksForBulkMove } = this.state
 
         const listMyBooksWithShelves = shelfCategories.map((shelf, index) => (
             <BookShelf
@@ -32,6 +51,7 @@ class BookShelves extends React.Component {
               shelf={shelf}
               books={books.filter((book) => book.shelf === shelf)}
               onUpdateShelf={onUpdateShelf}
+              onhandleUpdateIsBulkShelfMove={this.handleUpdateIsBulkShelfMove}
             />
           ))
 
@@ -43,14 +63,31 @@ class BookShelves extends React.Component {
             <div className="list-books-content">
             {listMyBooksWithShelves}
             {/*JSON.stringify(books)*/}
-                
-                <Link
+              {
+                booksForBulkMove.length > 0 
+                ? (
+                  <div style={{
+                    position: "fixed",
+                    right: "25px",
+                    bottom: "25px",
+                  }}>
+                    <BookShelfChanger
+                    book={booksForBulkMove} 
+                    onClearBooksForBulkMove={this.HandleClearBooksForBulkMove} 
+                    onUpdateShelf={onUpdateShelf}/>
+                  </div>
+                  )
+                : (
+                  <Link
                 to='/search'
                 >
                     <div className="open-search">
                         <button>Add a book</button>
                     </div>
                 </Link>
+                )
+              }  
+                
             </div>
         </div>
       )

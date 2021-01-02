@@ -4,11 +4,16 @@ import PropTypes from 'prop-types'
 import * as changeCase from "change-case";
 
 
-const BookShelf = ({shelf, books = [], onUpdateShelf}) => {
+const BookShelf = ({shelf, books = [], onUpdateShelf, onhandleUpdateIsBulkShelfMove}) => {
     /** This will later be filled out. This component is not connected to anything yet*/
     const listBooks = books.map( book => (
         <li key={book.id}>
-            <Book book={book} shelf={shelf} onUpdateShelf={onUpdateShelf}/>
+            <Book 
+            book={book} 
+            shelf={shelf} 
+            onUpdateShelf={onUpdateShelf} 
+            onhandleUpdateIsBulkShelfMove={onhandleUpdateIsBulkShelfMove}
+            />
         </li> 
     ))
 
@@ -27,7 +32,8 @@ const BookShelf = ({shelf, books = [], onUpdateShelf}) => {
 BookShelf.propTypes = {
     books: PropTypes.array.isRequired, //book from search API without self
     onUpdateShelf: PropTypes.func.isRequired, //function used to update the book shelf is the user want to change the shelf with select button
-    shelf: PropTypes.string.isRequired //shelf this book belongs to if the user has it in their shelf already. This will help reflect this in the select button
+    shelf: PropTypes.string.isRequired, //shelf this book belongs to if the user has it in their shelf already. This will help reflect this in the select button
+    onhandleUpdateIsBulkShelfMove: PropTypes.func
 }
 
 export default BookShelf
