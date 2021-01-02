@@ -26,6 +26,13 @@ class SearchBook extends React.Component{
         }))
     }
 
+    HandleClearBooksForBulkMove = () => {
+        console.log("here")
+        this.setState((currState) => ({
+            booksForBulkMove: []
+        }))
+    }
+
     updateQuery = (query) => { //the query argument will be passed event.target.value which is the value of the input field.
         this.setState(() => ({
           query: query.trim()
@@ -69,8 +76,11 @@ class SearchBook extends React.Component{
           : !books.error && books.map(book => ( //{books: { error: "empty query", items: []} } When the search dont return aby result, you get a different format of books rather than the aarry you expect. So the .map will not work leading to you app crashing. You have to check against this situation 
             <li key={book.id}>
                 <Book 
-                book={book} 
-                shelf={getBookShelf(book)} 
+                book={ 
+                    /*Bookes returned from the does not have the self property so, 
+                    I add this property inside if the user actually had the book in their self */
+                    {...book, shelf:getBookShelf(book)}
+                } 
                 onUpdateShelf={onUpdateShelf}
                 onhandleUpdateIsBulkShelfMove={this.handleUpdateIsBulkShelfMove}
                 />
@@ -96,7 +106,12 @@ class SearchBook extends React.Component{
                     onChange={(event) => this.updateQuery(event.target.value)}
                     />
                 </div>
-                { booksForBulkMove.length > 0 && !books.error && (<BookShelfChanger book={booksForBulkMove} onUpdateShelf={onUpdateShelf}/>)}
+                { booksForBulkMove.length > 0 && !books.error && (
+                <BookShelfChanger 
+                book={booksForBulkMove} 
+                onClearBooksForBulkMove={this.HandleClearBooksForBulkMove} 
+                onUpdateShelf={onUpdateShelf}/>
+                )}
             </div>
             <div className="search-books-results">
             {/*JSON.stringify(showingBooks.map(({ id = "", imageLinks = {smallThumbnail: ""}, title = "", authors = [] } = {}) => (`${authors}`)))*/}

@@ -9,6 +9,7 @@ class BookShelfChanger extends React.Component{
             PropTypes.array
         ]), //book, it may have a shlef or not. But preferably with self
         onUpdateShelf: PropTypes.func.isRequired, //function used to update the book shelf is the user want to change the shelf with select button
+        onClearBooksForBulkMove: PropTypes.func //This prop is optional. It is required when this component is used for bulkMove
     }
 
     state = {
@@ -31,8 +32,10 @@ class BookShelfChanger extends React.Component{
         const { name, value } = event.target
 
         this.updateValue(value)
-        console.log(book)
+        //console.log(book)
         onUpdateShelf(book, value)
+
+        this.props.onClearBooksForBulkMove && this.props.onClearBooksForBulkMove()
     }
 
     render(){
