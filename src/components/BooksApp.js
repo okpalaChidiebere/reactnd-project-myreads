@@ -23,13 +23,20 @@ class BooksApp extends React.Component {
         /*In this API call, we get the result of this API with 
           the token as auth header and display the result. This helps maintains sate on page refresh
           */
-        BooksAPI.getAll()
-        .then((books) => {
+        this.refreshBooksInMyShelf()
+    }
+
+    refreshBooksInMyShelf = async () => {
+
+        try{
+            const books = await BooksAPI.getAll()
             this.setState((currState) => ({
                 ...currState,
                 books
             }))
-        })
+        }catch(e){
+            alert(`Failed to fetch books: ${e.message}`)
+        }
     }
 
     updateBooks = (book, shelf) => {
