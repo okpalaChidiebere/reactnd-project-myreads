@@ -135,3 +135,16 @@ Good Programming practise for good app maintenance.
 Common ES6 JavaScript syntax used https://github.com/airbnb/javascript
 Common React good practices like functional components over class components. https://github.com/airbnb/javascript/tree/master/react
 Like your NotFound page, can be just a functional components
+
+
+
+
+If you want to dive deeper into React, you can visit the React documentation which has a lot of useful articles.
+Here are some of the interesting ones-
+
+Composition vs Inheritance  https://reactjs.org/docs/composition-vs-inheritance.html
+React Fragments  https://reactjs.org/docs/fragments.html
+Reconciliation in React  https://reactjs.org/docs/reconciliation.html
+Testing React Apps  https://reactjs.org/docs/testing.html
+React Hooks  https://reactjs.org/docs/hooks-intro.html
+Also, with React 16.8, React Hooks is available in the stable release. Reference- React Hooks announcement  https://reactjs.org/blog/2019/02/06/react-v16.8.0.html
