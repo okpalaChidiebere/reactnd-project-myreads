@@ -21,14 +21,24 @@ To get started developing right away:
 │   ├── favicon.ico # React Icon, You may change if you wish.
 │   └── index.html # DO NOT MODIFY
 └── src
+    ├──api
+    │   └──BooksAPI.js # A JavaScript API for the provided Udacity backend. Instruction for the methods are below.
+    ├── components
+    │    ├── Books.js # This compone displays each book
+    │    ├── BooksApp.js # The main root component of our app that has a constructor.
+    │    ├── BookShelf.js # Displays A shelf that has a list of books
+    │    ├── BookShelves.js # Displays a list of Shelves(BookShelf component)
+    │    ├── NotFound.js #This component shows when the user enters an invalid endpoint
+    │    └── SearchBook.js #This displays the page fo Search books to be added to your shelf
     ├── App.css # Styles for your app. Feel free to customize this as you desire.
-    ├── App.js # This is the root of your app. Contains static HTML right now.
+    ├── App.js # Returns the root component for our app which is BooksApp component.
     ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
-    ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
+    ├── 
     ├── icons # Helpful images for your app. Use at your discretion.
     │   ├── add.svg
     │   ├── arrow-back.svg
-    │   └── arrow-drop-down.svg
+    │   ├── arrow-drop-down.svg
+    │   └── insertImage.svg
     ├── index.css # Global styles. You probably won't need to change anything here.
     └── index.js # You should not need to modify this file. It is used for DOM rendering only.
 ```

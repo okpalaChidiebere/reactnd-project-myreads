@@ -27,7 +27,7 @@ class SearchBook extends React.Component{
     }
 
     HandleClearBooksForBulkMove = () => {
-        console.log("here")
+        //console.log("here")
         this.setState((currState) => ({
             booksForBulkMove: []
         }))
@@ -35,7 +35,7 @@ class SearchBook extends React.Component{
 
     updateQuery = (query) => { //the query argument will be passed event.target.value which is the value of the input field.
         this.setState(() => ({
-          query: query.trim()
+          query //.trim() is removed from here so that the whitespaces are not removed from the query.
         }))
 
         if (query !== '') {
